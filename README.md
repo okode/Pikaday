@@ -9,7 +9,7 @@ Pikaday
 ### A refreshing JavaScript Datepicker
 
 * Lightweight (less than 5kb minified and gzipped)
-* No dependencies (but plays well with [Moment.js][moment])
+* No dependencies
 * Modular CSS classes for easy styling
 
 [**Try Pikaday Demo →**][Pikaday]
@@ -80,28 +80,6 @@ var picker = new Pikaday({
 field.parentNode.insertBefore(picker.el, field.nextSibling);
 ```
 
-### Formatting
-
-By default, dates are formatted and parsed using standard JavaScript Date object.
-If [Moment.js][moment] is available in scope, it will be used to format and parse input values. You can pass an additional `format` option to the configuration which will be passed to the `moment` constructor.
-See the [moment.js example][] for a full version.
-
-```html
-<input type="text" id="datepicker" value="9 Oct 2014">
-
-<script src="moment.js"></script>
-<script src="pikaday.js"></script>
-<script>
-    var picker = new Pikaday({
-        field: document.getElementById('datepicker'),
-        format: 'D MMM YYYY',
-        onSelect: function() {
-            console.log(this.getMoment().format('Do MMMM YYYY'));
-        }
-    });
-</script>
-```
-
 For more advanced and flexible formatting you can pass your own `toString` function to the configuration which will be used to format the date object.
 This function has the following signature:
 
@@ -109,7 +87,7 @@ This function has the following signature:
 
 You should return a string from it.
 
-Be careful, though. If the formatted string that you return cannot be correctly parsed by the `Date.parse` method (or by `moment` if it is available), then you must provide your own `parse` function in the config. This function will be passed the formatted string and the format:
+Be careful, though. If the formatted string that you return cannot be correctly parsed by the `Date.parse` method, then you must provide your own `parse` function in the config. This function will be passed the formatted string and the format:
 
 `parse(dateString, format = 'YYYY-MM-DD')`
 
@@ -148,15 +126,13 @@ Pikaday has many useful options:
 * `position` preferred position of the datepicker relative to the form field, e.g.: `top right`, `bottom right` **Note:** automatic adjustment may occur to avoid datepicker from being displayed outside the viewport, see [positions example][] (default to 'bottom left')
 * `reposition` can be set to false to not reposition datepicker within the viewport, forcing it to take the configured `position` (default: true)
 * `container` DOM node to render calendar into, see [container example][] (default: undefined)
-* `format` the default output format for `.toString()` and `field` value (requires [Moment.js][moment] for custom formatting)
-* `formatStrict` the default flag for moment's strict date parsing (requires [Moment.js][moment] for custom formatting)
-* `toString(date, format)` function which will be used for custom formatting. This function will take precedence over `moment`.
-* `parse(dateString, format)` function which will be used for parsing input string and getting a date object from it. This function will take precedence over `moment`.
+* `toString(date, format)` function which will be used for custom formatting
+* `parse(dateString, format)` function which will be used for parsing input string and getting a date object from it
 * `defaultDate` the initial date to view when first opened
 * `setDefaultDate` Boolean (true/false). make the `defaultDate` the initial selected value
 * `firstDay` first day of the week (0: Sunday, 1: Monday, etc)
-* `minDate` the minimum/earliest date that can be selected (this should be a native Date object - e.g. `new Date()` or `moment().toDate()`)
-* `maxDate` the maximum/latest date that can be selected (this should be a native Date object - e.g. `new Date()` or `moment().toDate()`)
+* `minDate` the minimum/earliest date that can be selected (this should be a native Date object - e.g. `new Date()`)
+* `maxDate` the maximum/latest date that can be selected (this should be a native Date object - e.g. `new Date()`)
 * `disableWeekends` disallow selection of Saturdays or Sundays
 * `disableDayFn` callback function that gets passed a Date object for each day in view. Should return true to disable selection of that day.
 * `yearRange` number of years either side (e.g. `10`) or array of upper/lower range (e.g. `[1900,2015]`)
@@ -237,10 +213,6 @@ If you use a CommonJS compatible environment you can use the require function to
 ```javascript
 var pikaday = require('pikaday');
 ```
-
-When you bundle all your required modules with [Browserify][browserify] and you don't use [Moment.js][moment] specify the ignore option:
-
-`browserify main.js -o bundle.js -i moment`
 
 ## Ruby on Rails
 
